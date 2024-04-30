@@ -73,13 +73,13 @@ Visit `http://localhost:3000` to see your application.
    ```
 
 2. Follow the prompts to configure a new Convex project.
-3. The CLI will automatically update your `.env.local` with the necessary Convex configuration.
+3. The CLI will automatically create your `.env.local` with the necessary Convex configuration.
 
 ### Step 8: Set Up Clerk
 
 1. Visit [Clerk Dashboard](https://dashboard.clerk.com) and create an account or log in.
 2. Create a new instance for your project and obtain your Clerk Frontend API Key and Clerk Secret Key.
-3. Copy `.env.local.sample` to a new file named `.env.local` and fill in your Clerk keys:
+3. In your `.env.local` (created from step 7) add the following Clerk keys:
 
    ```plaintext
    NEXT_PUBLIC_CLERK_FRONTEND_API=your_clerk_frontend_api_key
