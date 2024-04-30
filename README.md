@@ -74,6 +74,17 @@ Visit `http://localhost:3000` to see your application.
 
 2. Follow the prompts to configure a new Convex project.
 3. The CLI will automatically create your `.env.local` with the necessary Convex configuration.
+4. Open `.env.local` and confirm there are keys for:
+
+   ```plaintext
+   CONVEX_DEPLOYMENT=
+   NEXT_PUBLIC_CONVEX_URL=
+   ```
+5. Add a key for `NEXT_PUBLIC_APP_URL=http://localhost:3000`
+
+   ```plaintext
+   NEXT_PUBLIC_APP_URL=http://localhost:3000
+   ```
 
 ### Step 8: Set Up Clerk
 
@@ -85,12 +96,21 @@ Visit `http://localhost:3000` to see your application.
    NEXT_PUBLIC_CLERK_FRONTEND_API=your_clerk_frontend_api_key
    CLERK_API_KEY=your_clerk_secret_key
    ```
-
+   
 4. navigate to JWT templates and create a new template and select convex as the provider
 5. copy the jwt issuer token and add to env.local file
 
    ```plaintext
    CLERK_JWT_ISSUER_DOMAIN=your_clerk_jwt_issuer_domain
+   ```
+
+6. Add a few more default keys
+
+   ```plaintext
+   NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+   NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+   NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
+   NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
    ```
 
 ### Step 9: Set Up Stripe
