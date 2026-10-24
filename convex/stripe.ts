@@ -7,10 +7,11 @@ import Stripe from "stripe";
 import { v } from "convex/values";
 import { action, internalAction } from "./_generated/server";
 import { internal } from "./_generated/api";
+import { getSubscriptionPeriodEnd, getInvoiceSubscription } from './stripe-subscription-period';
 
 const url = process.env.NEXT_PUBLIC_APP_URL;
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2023-10-16",
+  apiVersion: "2026-09-30.endive",
 });
 
 export const portal = action({
@@ -114,18 +115,18 @@ export const fulfill = internalAction({
           stripeSubscriptionId: subscription.id as string,
           stripeCustomerId: subscription.customer as string,
           stripePriceId: subscription.items.data[0].price.id as string,
-          stripeCurrentPeriodEnd: subscription.current_period_end * 1000,
+          stripeCurrentPeriodEnd: (getSubscriptionPeriodEnd(subscription, (items) => items[0])) * 1000,
         });
       }
 
       if (event.type === "invoice.payment_succeeded") {
         const subscription = await stripe.subscriptions.retrieve(
-          session.subscription as string
+          (getInvoiceSubscription(session)) as string
         );
 
         await ctx.runMutation(internal.subscriptions.update, {
           stripeSubscriptionId: subscription.id as string,
-          stripeCurrentPeriodEnd: subscription.current_period_end * 1000,
+          stripeCurrentPeriodEnd: (getSubscriptionPeriodEnd(subscription, (items) => items[0])) * 1000,
         });
       }
       return { success: true };
